@@ -18,7 +18,6 @@ export default async function Home() {
       <HeroPhoto />
       <UnderStrip />
       <JournalIndex posts={posts} />
-      <ProseDemo />
     </div>
   );
 }

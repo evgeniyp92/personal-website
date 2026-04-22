@@ -18,7 +18,7 @@ function formatDate(iso: string) {
 
 export function JournalIndex({ posts }: Readonly<{ posts: Readonly<PostMeta[]> }>) {
   return (
-    <div className="px-10 pt-10 pb-12 max-w-[1180px]">
+    <div className="px-10 pt-10 pb-12 max-w-300 mx-auto">
       <div className="font-mono-editorial text-[0.72rem] tracking-[0.2em] uppercase text-mute mb-5">
         {"// Latest entries"}
       </div>
