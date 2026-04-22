@@ -1,26 +1,94 @@
+/* Global stylesheet for the site.
+   Sections:
+     1. Tailwind import (v4 — PostCSS, no config file)
+     2. Palette custom properties (the named colors on :root)
+     3. @theme inline — exposes palette + font stack to Tailwind's utility
+        generator so classes like `bg-eigengrau` / `font-sans` work
+     4. html/body baseline
+     5. The faint sine-wave ground texture
+     6. Selection + article drop-cap CSS that's too specific for inline
+        Tailwind */
+
 @import "tailwindcss";
 
+/* The blog's palette. `eigengrau` is the dark ground (the brain's idea of
+   black in total darkness — slightly blue, never pure #000). Gold is the
+   single accent; titanium/mute/rule are the three text/border tiers. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ch-eigengrau: #16161d;
+  --ch-titanium: #e6e4dd;
+  --ch-mute: #8a8a92;
+  --ch-rule: #26262f;
+  --ch-gold: #c9a66b;
 }
 
+/* Tailwind v4 reads @theme to generate utility classes. `inline` means the
+   values resolve to the CSS variables above rather than being baked in, so
+   swapping --ch-* at runtime (future theming) would cascade through every
+   utility that references them. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-eigengrau: var(--ch-eigengrau);
+  --color-titanium: var(--ch-titanium);
+  --color-mute: var(--ch-mute);
+  --color-rule: var(--ch-rule);
+  --color-gold: var(--ch-gold);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif);
+  --font-mono-editorial: var(--font-mono-editorial);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* `color-scheme: dark` tells the browser to render form controls, scrollbars,
+   etc. with dark defaults — without it, a light scrollbar flashes against
+   the eigengrau background on Safari. */
+html {
+  color-scheme: dark;
+  background: var(--ch-eigengrau);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  color: var(--ch-titanium);
+  position: relative;
+}
+
+/* Subtle sine-wave texture on the page ground. Fixed positioning keeps it
+   from scrolling with content, so it reads as a property of the room
+   (eigengrau) rather than the page. Inline SVG avoids an extra network
+   request; 5% opacity keeps it below conscious perception on most displays. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='120' viewBox='0 0 240 120'><g fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1'><path d='M0 20 Q 60 0 120 20 T 240 20'/><path d='M0 50 Q 60 30 120 50 T 240 50'/><path d='M0 80 Q 60 60 120 80 T 240 80'/><path d='M0 110 Q 60 90 120 110 T 240 110'/></g></svg>");
+  background-size: 240px 120px;
+}
+
+/* Children of <body> sit above the ::before texture layer. */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Selection highlights use the gold anchor on eigengrau — a little bit of
+   editorial flourish in an otherwise restrained palette. */
+::selection {
+  background: var(--ch-gold);
+  color: var(--ch-eigengrau);
+}
+
+/* Drop cap on the first paragraph of an article. The post route wraps its
+   rendered MDX in `.mdx-body`; targeting `> p:first-of-type` (rather than
+   just `p`) means the cap only appears on the real opening paragraph, not
+   on every paragraph-under-a-heading. */
+.mdx-body > p:first-of-type::first-letter {
+  font-family: var(--font-serif), Didot, "Bodoni 72", serif;
+  font-size: 3.25rem;
+  float: left;
+  line-height: 0.9;
+  padding: 0.25rem 0.55rem 0 0;
+  color: var(--ch-gold);
 }
