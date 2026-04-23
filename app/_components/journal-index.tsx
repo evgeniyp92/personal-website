@@ -32,9 +32,9 @@ export function JournalIndex({ posts }: Readonly<{ posts: Readonly<PostMeta[]> }
                 three differently-sized strings in each row. */}
             <Link
               href={`/journal/${post.slug}`}
-              className="grid grid-cols-[120px_1fr_auto] gap-9 items-baseline py-6 group"
+              className="grid grid-rows-[1rem_1fr] md-grid-rows-1 md:grid-cols-[120px_1fr_auto] gap-2 md:gap-9 items-baseline py-6 group"
             >
-              <div className="font-mono-editorial text-[0.75rem] text-mute tracking-wide">
+              <div className="font-mono-editorial text-xs text-mute tracking-wide md:block">
                 {formatDate(post.date)}
               </div>
               <div>
@@ -48,7 +48,7 @@ export function JournalIndex({ posts }: Readonly<{ posts: Readonly<PostMeta[]> }
                 )}
               </div>
               {/* Kind label in gold mono — the one accent per row. */}
-              <div className="font-mono-editorial text-[0.7rem] tracking-[0.18em] uppercase text-gold">
+              <div className="font-mono-editorial text-[0.7rem] tracking-[0.18em] uppercase text-gold hidden md:block">
                 {post.kind}
               </div>
             </Link>
