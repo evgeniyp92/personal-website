@@ -42,7 +42,7 @@ export function HeroPhoto() {
       />
 
       {/* Layer 3: nav on top. `z-10` lifts it above the gradient layers. */}
-      <nav className="relative z-10">
+      <nav className="relative">
         <Nav active="Journal" />
       </nav>
 
@@ -60,7 +60,7 @@ export function HeroPhoto() {
         </div>
         {/* Thin gold hairline under the wordmark. Stands in for the lost
             ampersand that used to anchor the accent in the earlier mockup. */}
-        <div className="mt-3 ml-auto h-px w-24 bg-gold" />
+        <div className="mt-3 ml-0 md:ml-auto h-px w-24 bg-gold" />
       </div>
     </div>
   );

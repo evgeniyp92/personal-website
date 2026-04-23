@@ -1,8 +1,10 @@
+"use client";
 // Top nav. Appears on every page — on the landing page it lives inside the
 // hero photo (so the gradient bleeds behind it); on other pages it sits in a
 // normal <header> with a rule border beneath. The `active` prop is how the
 // caller tells us which tab should receive the gold underline.
 import Link from "next/link";
+import { useState } from "react";
 
 type Tab = { label: string; href: string };
 
@@ -16,17 +18,19 @@ const TABS: Tab[] = [
 ];
 
 export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
+  const [hamburgerOpen, setHamburgerOpen] = useState(false);
   return (
-    <div className="flex justify-between items-center px-10 py-6">
+    <div className="flex justify-between items-center px-10 py-6 relative">
       {/* Wordmark doubles as a home link. The wide tracking + uppercase is
           the editorial masthead voice; we don't use Geist's default here. */}
       <Link
         href="/"
-        className="text-[0.78rem] tracking-[0.3em] uppercase font-medium text-titanium"
+        className="text-xs tracking-[0.3rem] uppercase font-medium text-titanium"
       >
         Evgeniy Pimenov
       </Link>
-      <div className="flex gap-9 text-[0.85rem]">
+      {/* DESKTOP NAV */}
+      <nav className="hidden md:flex gap-9 text-[0.85rem]">
         {TABS.map((tab) => {
           const isActive = tab.label === active;
           return (
@@ -51,7 +55,34 @@ export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
             </Link>
           );
         })}
-      </div>
+      </nav>
+      {/* MOBILE NAV */}
+      <button
+        type="button"
+        className="md:hidden hover:cursor-pointer"
+        onClick={() => setHamburgerOpen(!hamburgerOpen)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-6"
+        >
+          <title>Menu</title>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </button>
+      <nav
+        className={`fixed inset-x-0 bg-eigengrau top-0 z-50 md:hidden 
+        overflow-hidden transition-[height] duration-300 ease-out
+        ${hamburgerOpen ? "h-screen" : "h-0"}`}
+      ></nav>
     </div>
   );
 }
