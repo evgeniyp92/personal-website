@@ -8,7 +8,6 @@
 import { getAllPosts } from "@/lib/posts";
 import { HeroPhoto } from "./_components/hero-photo";
 import { JournalIndex } from "./_components/journal-index";
-import { ProseDemo } from "./_components/prose-demo";
 import { UnderStrip } from "./_components/under-strip";
 
 export default async function Home() {
