@@ -92,3 +92,25 @@ body > * {
   padding: 0.25rem 0.55rem 0 0;
   color: var(--ch-gold);
 }
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-side {
+  from {
+    opacity: 0;
+    transform: translateX(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

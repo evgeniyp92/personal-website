@@ -15,7 +15,7 @@ type Pairing = {
 // Keep the list extensible: adding a `{ id, label }` entry here is all that's
 // needed to render another chip. The real swap (remapping --font-sans / etc.
 // based on the active id) is a future CSS/layout concern.
-const PAIRINGS: Pairing[] = [
+export const PAIRINGS: Pairing[] = [
   {
     id: "geist-instrumentserif",
     label: "Geist · Instrument Serif",
@@ -33,7 +33,7 @@ export function FontPicker() {
   }, [active]);
 
   return (
-    <div className="flex items-center gap-2.5 flex-wrap">
+    <div className="hidden md:flex items-center gap-2.5 flex-wrap">
       <span className="font-mono-editorial text-[0.68rem] tracking-[0.18em] uppercase text-mute mr-1">
         Type
       </span>

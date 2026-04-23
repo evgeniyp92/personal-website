@@ -5,6 +5,7 @@
 // caller tells us which tab should receive the gold underline.
 import Link from "next/link";
 import { useState } from "react";
+import { PAIRINGS } from "@/app/_components/font-picker";
 
 type Tab = { label: string; href: string };
 
@@ -81,8 +82,87 @@ export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
       <nav
         className={`fixed inset-x-0 bg-eigengrau top-0 z-50 md:hidden 
         overflow-hidden transition-[height] duration-300 ease-out
-        ${hamburgerOpen ? "h-screen" : "h-0"}`}
-      ></nav>
+        ${hamburgerOpen ? "h-screen" : "h-0"}
+        `}
+        aria-hidden={!hamburgerOpen}
+      >
+        {hamburgerOpen && (
+          <div className="p-12 h-full w-full flex flex-col">
+            <button
+              type="button"
+              onClick={() => setHamburgerOpen(false)}
+              className="hover:cursor-pointer w-fit self-end"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
+              >
+                <title>Close Menu</title>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div className="flex flex-col uppercase gap-y-4 py-12 text-2xl">
+              {TABS.map((tab, i) => {
+                const isActive = tab.label === active;
+                return (
+                  <Link
+                    key={tab.label}
+                    href={tab.href}
+                    style={{ animationDelay: `${200 + i * 60}ms` }}
+                    className={`opacity-0 animate-[fade-in-side_350ms_ease-out_forwards]
+                    tracking-wide transition-colors ${
+                      isActive
+                        ? "text-titanium"
+                        : "text-titanium/70 hover:text-titanium"
+                    }`}
+                  >
+                    {/* Wrapping the label in a relative <span> lets the gold
+                  underline absolute-position itself under exactly the
+                  label's width, no matter how wide the link hit area is. */}
+                    <span className="relative inline-block">
+                      {tab.label}
+                      {isActive && (
+                        <span className="absolute left-0 right-0 -bottom-1.5 h-px bg-gold" />
+                      )}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="flex flex-col uppercase py-12 gap-y-4">
+              <p className="text-2xl">Font pairs</p>
+              {PAIRINGS.map((p) => {
+                const on = p.id === active;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => {}}
+                    className={`px-2.5 py-1 border rounded-full transition-colors ${
+                      on
+                        ? "border-titanium text-titanium"
+                        : "border-rule text-mute hover:text-titanium hover:border-titanium/60"
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                );
+              })}
+              <span className="text-md italic px-2.5 py-1 border border-gold rounded-full text-gold text-center">
+                ★ Designer's Choice
+              </span>
+            </div>
+          </div>
+        )}
+      </nav>
     </div>
   );
 }
