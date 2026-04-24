@@ -117,3 +117,8 @@ body > * {
     transform: translateY(0);
   }
 }
+
+html[data-type-pair="satoshi-bodonimoda"] {
+  --font-sans: var(--font-satoshi);
+  --font-serif: var(--font-bodoni-moda);
+}

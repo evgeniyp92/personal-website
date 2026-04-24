@@ -7,12 +7,14 @@
 //      paints eigengrau as the ground color
 import type { Metadata } from "next";
 import {
+  Bodoni_Moda,
   Geist,
   Geist_Mono,
   IBM_Plex_Mono,
   Instrument_Serif,
 } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
 import { TypePairProvider } from "@/app/_components/context/TypePairProvider";
 
 // Geist = display + body sans. `--font-geist-sans` is exposed through
@@ -38,12 +40,36 @@ const instrumentSerif = Instrument_Serif({
   style: ["normal", "italic"],
 });
 
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni-moda",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+});
+
 // IBM Plex Mono: editorial mono voice. Used for eyebrows, date ledgers, and
 // the `// comment`-style markers dotted across the site.
 const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
+});
+
+const satoshi = localFont({
+  src: [
+    {
+      path: "../assets/font/Satoshi-Variable.woff2",
+      weight: "300 900",
+      style: "normal",
+    },
+    {
+      path: "../assets/font/Satoshi-VariableItalic.woff2",
+      weight: "300 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-satoshi",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -64,7 +90,7 @@ export default function RootLayout({
       // `data-type-pair` is a hook for the font-picker client component —
       // swapping its value could one day remap --font-sans/--font-serif.
       data-type-pair="geist-instrumentserif"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${plexMono.variable} ${bodoniModa.variable} ${satoshi.variable} h-full antialiased`}
     >
       <head>
         <title></title>

@@ -20,6 +20,7 @@ export type Pairing = {
 
 export const PAIRINGS: Pairing[] = [
   { id: "geist-instrumentserif", label: "Geist · Instrument Serif" },
+  { id: "satoshi-bodonimoda", label: "Satoshi · Bodoni Moda" },
 ];
 
 export const DEFAULT_PAIR = PAIRINGS[0].id;

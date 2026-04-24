@@ -35,11 +35,6 @@ export function FontPicker() {
           </button>
         );
       })}
-      {/* Static "designer's choice" chip — a visual note that the one visible
-          option is intentional rather than a missing implementation. */}
-      <span className="text-[0.76rem] italic px-2.5 py-1 border border-gold rounded-full text-gold">
-        ★ Designer's Choice
-      </span>
     </div>
   );
 }

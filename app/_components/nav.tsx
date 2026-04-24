@@ -165,9 +165,6 @@ export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
                   </button>
                 );
               })}
-              <span className="text-md italic px-2.5 py-1 border border-gold rounded-full text-gold text-center">
-                ★ Designer's Choice
-              </span>
             </div>
           </div>
         )}
