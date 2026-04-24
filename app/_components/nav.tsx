@@ -14,8 +14,8 @@ type Tab = { label: string; href: string };
 const TABS: Tab[] = [
   { label: "Journal", href: "/" },
   { label: "Work", href: "/work" },
-  { label: "Notes", href: "/notes" },
-  { label: "Colophon", href: "/colophon" },
+  // { label: "Notes", href: "/notes" },
+  // { label: "Colophon", href: "/colophon" },
 ];
 
 export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
