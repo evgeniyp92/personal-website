@@ -2,7 +2,9 @@
 // fades into the eigengrau background, with the nav floating on top and the
 // "humble abode" wordmark at the bottom-right. Everything here is layering
 // (photo -> gradient -> content) inside a single 24rem tall stage.
+
 import { Nav } from "./nav";
+import { SerifDisplay } from "./SerifDisplay";
 
 // Unsplash photo — intentionally not super recognizable. The duotone
 // treatment (grayscale + brightness + contrast in the filter below) makes
@@ -58,12 +60,7 @@ export function HeroPhoto() {
           Welcome to my
         </div>
         {/* The single big Instrument Serif moment on the whole site. */}
-        <div
-          className="font-serif italic text-[5.25rem] leading-[0.95] tracking-tight text-titanium"
-          style={{ fontVariationSettings: '"opsz" 32, "wght" 400' }}
-        >
-          humble abode
-        </div>
+        <SerifDisplay />
         {/* Thin gold hairline under the wordmark. Stands in for the lost
             ampersand that used to anchor the accent in the earlier mockup. */}
         <div className="mt-3 ml-0 md:ml-auto h-px w-24 bg-gold" />

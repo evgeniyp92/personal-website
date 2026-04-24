@@ -16,11 +16,20 @@ type TypePairContextValue = {
 export type Pairing = {
   id: string;
   label: string;
+  roomName: string;
 };
 
 export const PAIRINGS: Pairing[] = [
-  { id: "geist-instrumentserif", label: "Geist · Instrument Serif" },
-  { id: "satoshi-bodonimoda", label: "Satoshi · Bodoni Moda" },
+  {
+    id: "geist-instrumentserif",
+    label: "Geist · Instrument Serif",
+    roomName: "Humble abode",
+  },
+  {
+    id: "satoshi-bodonimoda",
+    label: "Satoshi · Bodoni Moda",
+    roomName: "Display space",
+  },
 ];
 
 export const DEFAULT_PAIR = PAIRINGS[0].id;
