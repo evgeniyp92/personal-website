@@ -2,7 +2,9 @@
 // fades into the eigengrau background, with the nav floating on top and the
 // "humble abode" wordmark at the bottom-right. Everything here is layering
 // (photo -> gradient -> content) inside a single 24rem tall stage.
+
 import { Nav } from "./nav";
+import { SerifDisplay } from "./SerifDisplay";
 
 // Unsplash photo — intentionally not super recognizable. The duotone
 // treatment (grayscale + brightness + contrast in the filter below) makes
@@ -27,15 +29,18 @@ export function HeroPhoto() {
         }}
       />
       {/* Layer 2: gradients that fade the photo's edges into eigengrau. The
-          linear gradient darkens the bottom so the wordmark has contrast;
-          the radial gradient vignettes toward the corners. Both use the
-          eigengrau hex directly (rgba form of #16161d) because gradient
-          stops can't consume CSS variables reliably across browsers. */}
+          linear gradient fades to fully-opaque eigengrau at the very top —
+          this hides the seam where iOS Safari's top browser bar inherits the
+          page background color and would otherwise butt against the photo —
+          and darkens the bottom so the wordmark has contrast. The radial
+          gradient vignettes toward the corners. Both use the eigengrau hex
+          directly (rgba form of #16161d) because gradient stops can't
+          consume CSS variables reliably across browsers. */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            linear-gradient(180deg, rgba(22,22,29,0.55) 0%, rgba(22,22,29,0.15) 35%, rgba(22,22,29,0.85) 100%),
+            linear-gradient(180deg, rgba(22,22,29,1) 0%, rgba(22,22,29,0.15) 35%, rgba(22,22,29,0.85) 100%),
             radial-gradient(120% 60% at 50% 40%, rgba(22,22,29,0) 0%, rgba(22,22,29,0.45) 100%)
           `,
         }}
@@ -55,9 +60,7 @@ export function HeroPhoto() {
           Welcome to my
         </div>
         {/* The single big Instrument Serif moment on the whole site. */}
-        <div className="font-serif italic text-[5.25rem] leading-[0.95] tracking-tight text-titanium">
-          humble abode
-        </div>
+        <SerifDisplay />
         {/* Thin gold hairline under the wordmark. Stands in for the lost
             ampersand that used to anchor the accent in the earlier mockup. */}
         <div className="mt-3 ml-0 md:ml-auto h-px w-24 bg-gold" />

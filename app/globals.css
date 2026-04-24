@@ -2,7 +2,7 @@
    Sections:
      1. Tailwind import (v4 — PostCSS, no config file)
      2. Palette custom properties (the named colors on :root)
-     3. @theme inline — exposes palette + font stack to Tailwind's utility
+     3. @theme inline — exposes palette to Tailwind's utility
         generator so classes like `bg-eigengrau` / `font-sans` work
      4. html/body baseline
      5. The faint sine-wave ground texture
@@ -22,6 +22,14 @@
   --ch-gold: #c9a66b;
 }
 
+/* Fonts extracted here to facilitate hot-swapping font pairs */
+@theme {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono-editorial: var(--font-plex-mono);
+}
+
 /* Tailwind v4 reads @theme to generate utility classes. `inline` means the
    values resolve to the CSS variables above rather than being baked in, so
    swapping --ch-* at runtime (future theming) would cascade through every
@@ -32,11 +40,6 @@
   --color-mute: var(--ch-mute);
   --color-rule: var(--ch-rule);
   --color-gold: var(--ch-gold);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-serif);
-  --font-mono-editorial: var(--font-mono-editorial);
 }
 
 /* `color-scheme: dark` tells the browser to render form controls, scrollbars,
@@ -48,7 +51,7 @@ html {
 }
 
 body {
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   color: var(--ch-titanium);
   position: relative;
 }
@@ -113,4 +116,9 @@ body > * {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+html[data-type-pair="satoshi-bodonimoda"] {
+  --font-sans: var(--font-satoshi);
+  --font-serif: var(--font-bodoni-moda);
 }

@@ -7,12 +7,15 @@
 //      paints eigengrau as the ground color
 import type { Metadata } from "next";
 import {
+  Bodoni_Moda,
   Geist,
   Geist_Mono,
   IBM_Plex_Mono,
   Instrument_Serif,
 } from "next/font/google";
 import "./globals.css";
+import localFont from "next/font/local";
+import { TypePairProvider } from "@/app/_components/context/TypePairProvider";
 
 // Geist = display + body sans. `--font-geist-sans` is exposed through
 // Tailwind v4's @theme block in globals.css so `font-sans` resolves to Geist.
@@ -31,22 +34,46 @@ const geistMono = Geist_Mono({
 // Instrument Serif: the one display serif — reserved for the hero title and
 // the drop cap at the start of each article body.
 const instrumentSerif = Instrument_Serif({
-  variable: "--font-serif",
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
   weight: "400",
+  style: ["normal", "italic"],
+});
+
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni-moda",
+  subsets: ["latin"],
+  axes: ["opsz"],
   style: ["normal", "italic"],
 });
 
 // IBM Plex Mono: editorial mono voice. Used for eyebrows, date ledgers, and
 // the `// comment`-style markers dotted across the site.
 const plexMono = IBM_Plex_Mono({
-  variable: "--font-mono-editorial",
+  variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
 });
 
+const satoshi = localFont({
+  src: [
+    {
+      path: "../assets/font/Satoshi-Variable.woff2",
+      weight: "300 900",
+      style: "normal",
+    },
+    {
+      path: "../assets/font/Satoshi-VariableItalic.woff2",
+      weight: "300 900",
+      style: "italic",
+    },
+  ],
+  variable: "--font-satoshi",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Evgeniy Pimenov — humble abode",
+  title: "Evgeniy Pimenov",
   description:
     "Essays, notes, and experiments from a small studio. The journal of Evgeniy Pimenov.",
 };
@@ -59,13 +86,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       // `data-type-pair` is a hook for the font-picker client component —
       // swapping its value could one day remap --font-sans/--font-serif.
       data-type-pair="geist-instrumentserif"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${plexMono.variable} ${bodoniModa.variable} ${satoshi.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: we do this here to avoid FOUC issues when the
+          dangerouslySetInnerHTML={{
+            __html: `
+          try{var p=localStorage.getItem('type-pair');if(p)document.documentElement.dataset.typePair=p}catch(e){}
+        `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-eigengrau text-titanium">
-        {children}
+        <TypePairProvider>{children}</TypePairProvider>
       </body>
     </html>
   );

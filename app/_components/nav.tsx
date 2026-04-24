@@ -5,7 +5,10 @@
 // caller tells us which tab should receive the gold underline.
 import Link from "next/link";
 import { useState } from "react";
-import { PAIRINGS } from "@/app/_components/font-picker";
+import {
+  PAIRINGS,
+  useTypePair,
+} from "@/app/_components/context/TypePairProvider";
 
 type Tab = { label: string; href: string };
 
@@ -14,12 +17,13 @@ type Tab = { label: string; href: string };
 const TABS: Tab[] = [
   { label: "Journal", href: "/" },
   { label: "Work", href: "/work" },
-  { label: "Notes", href: "/notes" },
-  { label: "Colophon", href: "/colophon" },
+  // { label: "Notes", href: "/notes" },
+  // { label: "Colophon", href: "/colophon" },
 ];
 
 export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const { active: activePair, setActive: setActivePair } = useTypePair();
   return (
     <div className="flex justify-between items-center px-10 py-6 relative">
       {/* Wordmark doubles as a home link. The wide tracking + uppercase is
@@ -144,12 +148,13 @@ export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
             <div className="flex flex-col uppercase py-12 gap-y-4">
               <p className="text-2xl">Font pairs</p>
               {PAIRINGS.map((p) => {
-                const on = p.id === active;
+                const on = p.id === activePair;
                 return (
                   <button
                     key={p.id}
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => setActivePair(p.id)}
+                    aria-pressed={on ? "true" : "false"}
                     className={`px-2.5 py-1 border rounded-full transition-colors ${
                       on
                         ? "border-titanium text-titanium"
@@ -160,9 +165,6 @@ export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
                   </button>
                 );
               })}
-              <span className="text-md italic px-2.5 py-1 border border-gold rounded-full text-gold text-center">
-                ★ Designer's Choice
-              </span>
             </div>
           </div>
         )}
