@@ -58,7 +58,10 @@ export function HeroPhoto() {
           Welcome to my
         </div>
         {/* The single big Instrument Serif moment on the whole site. */}
-        <div className="font-serif italic text-[5.25rem] leading-[0.95] tracking-tight text-titanium">
+        <div
+          className="font-serif italic text-[5.25rem] leading-[0.95] tracking-tight text-titanium"
+          style={{ fontVariationSettings: '"opsz" 32, "wght" 400' }}
+        >
           humble abode
         </div>
         {/* Thin gold hairline under the wordmark. Stands in for the lost

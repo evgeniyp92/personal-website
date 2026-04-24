@@ -43,7 +43,7 @@ const instrumentSerif = Instrument_Serif({
 const bodoniModa = Bodoni_Moda({
   variable: "--font-bodoni-moda",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  axes: ["opsz"],
   style: ["normal", "italic"],
 });
 
