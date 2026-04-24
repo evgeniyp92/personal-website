@@ -27,7 +27,7 @@ export const DEFAULT_PAIR = PAIRINGS[0].id;
 const TypePairContext = createContext<TypePairContextValue | null>(null);
 
 export const TypePairProvider = ({ children }: { children: ReactNode }) => {
-  const [typePair, setTypePair] = useState<string>(DEFAULT_PAIR.id);
+  const [typePair, setTypePair] = useState<string>(DEFAULT_PAIR);
 
   const setActive = useCallback((typePairToSet: string) => {
     try {

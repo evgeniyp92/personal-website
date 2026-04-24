@@ -13,6 +13,7 @@ import {
   Instrument_Serif,
 } from "next/font/google";
 import "./globals.css";
+import { TypePairProvider } from "@/app/_components/context/TypePairProvider";
 
 // Geist = display + body sans. `--font-geist-sans` is exposed through
 // Tailwind v4's @theme block in globals.css so `font-sans` resolves to Geist.
@@ -59,13 +60,25 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       // `data-type-pair` is a hook for the font-picker client component —
       // swapping its value could one day remap --font-sans/--font-serif.
       data-type-pair="geist-instrumentserif"
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${plexMono.variable} h-full antialiased`}
     >
+      <head>
+        <title></title>
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: we do this here to avoid FOUC issues when the
+          dangerouslySetInnerHTML={{
+            __html: `
+          try{var p=localStorage.getItem('type-pair');if(p)document.documentElement.dataset.typePair=p}catch(e){}
+        `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-eigengrau text-titanium">
-        {children}
+        <TypePairProvider>{children}</TypePairProvider>
       </body>
     </html>
   );
