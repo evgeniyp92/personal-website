@@ -2,7 +2,7 @@
    Sections:
      1. Tailwind import (v4 — PostCSS, no config file)
      2. Palette custom properties (the named colors on :root)
-     3. @theme inline — exposes palette + font stack to Tailwind's utility
+     3. @theme inline — exposes palette to Tailwind's utility
         generator so classes like `bg-eigengrau` / `font-sans` work
      4. html/body baseline
      5. The faint sine-wave ground texture
