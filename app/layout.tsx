@@ -31,7 +31,7 @@ const geistMono = Geist_Mono({
 // Instrument Serif: the one display serif — reserved for the hero title and
 // the drop cap at the start of each article body.
 const instrumentSerif = Instrument_Serif({
-  variable: "--font-serif",
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
@@ -40,13 +40,13 @@ const instrumentSerif = Instrument_Serif({
 // IBM Plex Mono: editorial mono voice. Used for eyebrows, date ledgers, and
 // the `// comment`-style markers dotted across the site.
 const plexMono = IBM_Plex_Mono({
-  variable: "--font-mono-editorial",
+  variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Evgeniy Pimenov — humble abode",
+  title: "Evgeniy Pimenov",
   description:
     "Essays, notes, and experiments from a small studio. The journal of Evgeniy Pimenov.",
 };
