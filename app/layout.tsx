@@ -93,7 +93,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} ${plexMono.variable} ${bodoniModa.variable} ${satoshi.variable} h-full antialiased`}
     >
       <head>
-        <title></title>
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: we do this here to avoid FOUC issues when the
           dangerouslySetInnerHTML={{
