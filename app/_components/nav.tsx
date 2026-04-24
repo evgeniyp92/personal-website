@@ -60,16 +60,20 @@ export function Nav({ active }: Readonly<{ active: Readonly<Tab["label"]> }>) {
       {/* MOBILE NAV */}
       <button
         type="button"
-        className="md:hidden hover:cursor-pointer"
-        onClick={() => setHamburgerOpen(!hamburgerOpen)}
+        className="relative md:hidden hover:cursor-pointer"
+        onClick={() => setHamburgerOpen((open) => !open)}
       >
+        <span
+          className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
+          aria-hidden="true"
+        />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="size-6"
+          className="size-6 pointer-events-none"
         >
           <title>Menu</title>
           <path
