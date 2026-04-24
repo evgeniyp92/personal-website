@@ -5,7 +5,7 @@
 // caller tells us which tab should receive the gold underline.
 import Link from "next/link";
 import { useState } from "react";
-import { PAIRINGS } from "@/app/_components/font-picker";
+import { PAIRINGS } from "@/app/_components/context/TypePairProvider";
 
 type Tab = { label: string; href: string };
 
